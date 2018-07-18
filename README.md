@@ -1,3 +1,6 @@
+# Important Notice
+This is an open project, so...WORK IN PROGRESS! You might find bugs and incomplete work all over this repository. Therefore, I kindly ask you to keep calm and inform me if you encounter any issue. Thank you!
+
 # What is imPulse?
 Energy harvesting alternative for bikes including data logging, smart illumination system and Power Distribution Board for powerbanks
 
