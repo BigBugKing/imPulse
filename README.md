@@ -15,3 +15,12 @@ The aim of this project is to provide a cost-effective alternative to power gene
 - Power Distribution Board (PDB) to charge two different/generic powerbanks. While one powerbank is charged, the other one is used to supply energy to the system. 
 
 Please bear in mind that I am currently testing quick prototypes that may compromise the bike reliability in some cases (aka 'learn by doing'). No stress, compression, bending or torsion analysis have been carried out yet on the power generation stage, so use all this project content at your own risk. 
+
+# Milestones
+
+- Power Generation Stage (Minor changes needed)
+- Data Logger Stage (Minor changes needed)
+- Smart Lighting System (Current stage)
+- eBox Stage (Current stage)
+
+
