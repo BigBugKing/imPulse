@@ -22,7 +22,7 @@ Please bear in mind that I am currently testing quick prototypes that may compro
 
 - Power Generation Stage (Minor changes needed)
 - Data Logger Stage (Upgrading!)
-- Smart Lighting System (Minor changes needed)
+- Smart Lighting System (Upgrading!)
 - eBox Stage (Current stage)
 
 
