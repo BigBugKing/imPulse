@@ -21,8 +21,8 @@ Please bear in mind that I am currently testing quick prototypes that may compro
 # Milestones
 
 - Power Generation Stage (Minor changes needed)
-- Data Logger Stage (Minor changes needed)
-- Smart Lighting System (Current stage)
+- Data Logger Stage (Upgrading!)
+- Smart Lighting System (Minor changes needed)
 - eBox Stage (Current stage)
 
 
