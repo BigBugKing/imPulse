@@ -18,11 +18,12 @@ The aim of this project is to provide a cost-effective alternative to power gene
 
 Please bear in mind that I am currently testing quick prototypes that may compromise the bike reliability in some cases (aka 'learn by doing'). No stress, compression, bending or torsion analysis have been carried out yet on the power generation stage, so use all this project content at your own risk. 
 
-# Milestones
+# Milestones for Hackaday 2018
 
-- Power Generation Stage (Minor changes needed)
-- Data Logger Stage (Upgrading!)
-- Smart Lighting System (Upgrading!)
-- eBox Stage (Current stage)
+- Power Generation Stage (Closed)
+- Data Logger Stage (Closed)
+- Smart Lighting System (Closed)
+- eBox Stage (Closed)
+- Wiring Harness Stage (Closed)
 
 
