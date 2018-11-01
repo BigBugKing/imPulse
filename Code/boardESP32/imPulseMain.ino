@@ -1,5 +1,4 @@
-/* This program will be managing your bike its sensors, 
- *  energy generation, lighting system and Blynk!
+/*  This program will manage all your bike sub-systems...bECU!
  *  Author: Javier Betancor
  *  Project: imPulse
  *  Version: 0.0.2 - 30/10/18
@@ -46,8 +45,9 @@ bool stateBeam = HIGH; //Beam Light boolbean state
 int ambLight = 0; //Initialize LDR varioable for analog readings
 int LI = 5;// D8 (IO05) - Left Indicator Pin
 int RI = 27;// D4 (IO27) - Right Indicator Pin
-volatile int countL = 1; //Count for LI
-volatile int countR = 1; //Count for RI
+volatile int countL = 1; //Count for LI needs to be volatile
+volatile int countR = 1; //Count for RI needs to be volatile
+long delayTime = 0;
 
 const byte topLDR = 39; // A1 (IO39) - Top LDR
 //const byte rightLDR = 34 ; // A2 (IO34) - Rigth LDR
@@ -94,9 +94,9 @@ void IRAM_ATTR RIP (){
 
 /*----- Blynk -----*/
 
-BLYNK_WRITE(V1){ //Get linear speed form phone
+BLYNK_WRITE(V1){ //Get linear speed from phone
   GpsParam gps(param);
-  linearSpeed = gps.getSpeed();//Parameter coming from Phone
+  linearSpeed = gps.getSpeed();
 }
 
 BLYNK_READ(V2){ //Send linear speed to Blynk
@@ -160,14 +160,15 @@ void loop (){
 
   ambLight = analogRead(topLDR);
 
-  //Beam Light condition -- Fix flickering when is dark and street lights are approached
-  if (ambLight <= 60){
+  //Beam Light condition
+  if (ambLight <= 100){
     
-    headLightOn(50);//PID, etc...
+    headLightOn(50);
     brakeLight(20);
     stateBeam = LOW;
+    delayTime = millis();
     
-  } else if (ambLight > 60 && stateBeam == LOW){
+  } else if (ambLight > 100 && millis() - delayTime >= 5E3 && stateBeam == LOW){
     
     lightsOff();
     stateBeam = HIGH;
@@ -183,6 +184,7 @@ void loop (){
   }else if(countL%2 == 0){
     
     indicatorOn(0,-1);
+    
   }
   
   /*----- Blynk -----*/
@@ -201,43 +203,29 @@ void indicatorOn(int z,int j) {
   for (int i = 0; i<=5;i++){
 
     //Front Light
-    Fleds[(5-z)-i*j].setRGB( 255, 30, 0);
-    Fleds[(14+z)+i*j].setRGB( 255, 30, 0);
-    Fleds[(25-z)-i*j].setRGB( 255, 30, 0);
-    Fleds[(34+z)+i*j].setRGB( 255, 30, 0);
-    Fleds[(45-z)-i*j].setRGB( 255, 30, 0);
+    Fleds[(5-z)-i*j].setRGB(255,30,0);
+    Fleds[(14+z)+i*j].setRGB(255,30,0);
+    Fleds[(25-z)-i*j].setRGB(255,30,0);
+    Fleds[(34+z)+i*j].setRGB(255,30,0);
+    Fleds[(45-z)-i*j].setRGB(255,30,0);
 
     //Rear Light
-    Rleds[(5-z)+i*j].setRGB( 255, 30, 0);
-    Rleds[(14+z)-i*j].setRGB( 255, 30, 0);
-    Rleds[(25-z)+i*j].setRGB( 255, 30, 0);
-    Rleds[(34+z)-i*j].setRGB( 255, 30, 0);
-    Rleds[(45-z)+i*j].setRGB( 255, 30, 0);
+    Rleds[(5-z)+i*j].setRGB(255,30,0);
+    Rleds[(14+z)-i*j].setRGB(255,30,0);
+    Rleds[(25-z)+i*j].setRGB(255,30,0);
+    Rleds[(34+z)-i*j].setRGB(255,30,0);
+    Rleds[(45-z)+i*j].setRGB(255,30,0);
     FastLED.show();
-    delay (70); 
+    delay (80); 
   }
   delay(200);
 
   if(z == 1 && j == 1){ledRightInd.on();}else{ledLeftInd.on();}
-  
-  //FastLED.setBrightness(50);
-  for (int i = 0; i<=5;i++){
 
-    //Front Light
-    Fleds[(5-z)-i*j].setRGB( 0, 0, 0);
-    Fleds[(14+z)+i*j].setRGB( 0, 0, 0);
-    Fleds[(25-z)-i*j].setRGB( 0, 0, 0);
-    Fleds[(34+z)+i*j].setRGB( 0, 0, 0);
-    Fleds[(45-z)-i*j].setRGB( 0, 0, 0);
+  fill_solid(Fleds, NUM_LEDS, CRGB::Black);
+  fill_solid(Rleds, NUM_LEDS, CRGB::Black);
+  FastLED.show();
 
-    //Rear Light
-    Rleds[(5-z)+i*j].setRGB( 0, 0, 0);
-    Rleds[(14+z)-i*j].setRGB( 0, 0, 0);
-    Rleds[(25-z)+i*j].setRGB( 0, 0, 0);
-    Rleds[(34+z)-i*j].setRGB( 0, 0, 0);
-    Rleds[(45-z)+i*j].setRGB( 0, 0, 0); 
-    FastLED.show();
-    }
     if(z == 1 && j == 1){ledRightInd.off();}else{ledLeftInd.off();}
 }//End of indicatorOn
 
